@@ -1,11 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ma Première Application</title>
+    <title>Calculateur d'incertitude - Black-Scholes</title>
 </head>
 <body>
-    <h1>Bienvenue dans mon application Flask !</h1>
+    <h1>Calcul des incertitudes avec la formule de Black-Scholes</h1>
+    
+    <form action="/calculate" method="POST">
+        <label for="S">Prix de l'actif sous-jacent (S) :</label>
+        <input type="text" id="S" name="S" required><br><br>
+
+        <label for="K">Prix d'exercice (K) :</label>
+        <input type="text" id="K" name="K" required><br><br>
+
+        <label for="T">Temps jusqu'à l'échéance (T en années) :</label>
+        <input type="text" id="T" name="T" required><br><br>
+
+        <label for="r">Taux d'intérêt sans risque (r) :</label>
+        <input type="text" id="r" name="r" required><br><br>
+
+        <label for="sigma">Volatilité (σ) :</label>
+        <input type="text" id="sigma" name="sigma" required><br><br>
+
+        <button type="submit">Calculer</button>
+    </form>
+
+    {% if result %}
+        <h2>Résultat :</h2>
+        <p>Le résultat de votre calcul est : {{ result }}</p>
+    {% endif %}
 </body>
 </html>
