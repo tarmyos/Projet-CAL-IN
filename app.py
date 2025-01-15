@@ -34,7 +34,7 @@ def calculate():
         return render_template('index.html', call_result=call_price, put_result=put_price, call_uncertainty=delta_price, put_uncertainty=delta_price)
 
     except ValueError:
-        return render_template('index.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées")
+        return render_template('index.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées", call_uncertainty="Erreur dans les entrées", put_uncertainty="Erreur dans les entrées")
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=True)
