@@ -27,11 +27,11 @@ def calculate():
 
 
         # Calcul des prix des options et de leurs incertitudes associées
-        call_price, delta_price = propagation_incertitudes_call(S, K, T, r, sigma, dS, dK, dT, dr, dSigma)
-        put_price, delta_price = propagation_incertitudes_put(S, K, T, r, sigma, dS, dK, dT, dr, dSigma)
+        call_price, delta_call = propagation_incertitudes_call(S, K, T, r, sigma, dS, dK, dT, dr, dSigma)
+        put_price, delta_put = propagation_incertitudes_put(S, K, T, r, sigma, dS, dK, dT, dr, dSigma)
 
         # Retour des résultats
-        return render_template('index.html', call_result=call_price, put_result=put_price, call_uncertainty=delta_price, put_uncertainty=delta_price)
+        return render_template('index.html', call_result=call_price, put_result=put_price, call_uncertainty=delta_call, put_uncertainty=delta_put)
 
     except ValueError:
         return render_template('index.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées", call_uncertainty="Erreur dans les entrées", put_uncertainty="Erreur dans les entrées")
