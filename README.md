@@ -19,7 +19,7 @@ PROJET-CAL-IN/
 │  
 ├── app.py                 # Point d'entrée principal  
 ├── templates/             # Contient les fichiers HTML  
-│   └── index.html         
+│   └── index.html, european.html, american.html, bermudan.html       
 ├── static/                # Contient les fichiers CSS, JS, img, etc.  
 │   └── style.css          # Fichier CSS pour le style  
 ├── scripts/               # Contient les scripts Python  
