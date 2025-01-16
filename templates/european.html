@@ -14,7 +14,7 @@
         <a href="/bermudan"> Options bermudiennes </a>
     </nav>
     <h1> Calculateur d'une option vanille européenne (call et put) </h1>
-    <form action="/european/calculate" method="POST">
+    <form method="POST">
 
         <label for="S">Prix de l'actif sous-jacent (S, en euros) :</label>
         <input type="text" id="S" name="S" required>
@@ -26,7 +26,7 @@
         <label for="dK">Incertitude sur K :</label>
         <input type="text" id="dK" name="dK" required><br><br>
 
-        <label for="T">Temps jusqu'à l'échéance (T, années) :</label>
+        <label for="T">Temps jusqu'à l'échéance (T, en années ou fraction d'années ex: 3 mois = 0.25) :</label>
         <input type="text" id="T" name="T" required>
         <label for="dT">Incertitude sur T :</label>
         <input type="text" id="dT" name="dT" required><br><br>
