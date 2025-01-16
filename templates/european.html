@@ -11,23 +11,23 @@
         <a href="/">Accueil</a>
         <a href="/european">Calculateur d'option vanille européenne </a>
         <a href="/american">Calculateur d'option américaine </a>
-        <a href="/bermudian">Calculateur d'option bermudienne </a>
+        <a href="/bermudan">Calculateur d'option bermudienne </a>
     </nav>
     <h1> Calculateur d'une option vanille européenne (call et put) </h1>
     <form action="/european/calculate" method="POST">
-        <label for="S">Prix de l'actif sous-jacent (S) :</label>
+        <label for="S">Prix de l'actif sous-jacent (S, en euros) :</label>
         <input type="text" id="S" name="S" required><br><br>
 
-        <label for="K">Prix d'exercice (K) :</label>
+        <label for="K">Prix d'exercice (K, en euros) :</label>
         <input type="text" id="K" name="K" required><br><br>
 
-        <label for="T">Temps jusqu'à l'échéance (T, en années) :</label>
+        <label for="T">Temps jusqu'à l'échéance (T, années) :</label>
         <input type="text" id="T" name="T" required><br><br>
 
-        <label for="r">Taux d'intérêt sans risque (r, en décimal) :</label>
+        <label for="r">Taux d'intérêt sans risque (r, en décimal ex: 0,07 pour 7%) :</label>
         <input type="text" id="r" name="r" required><br><br>
 
-        <label for="sigma">Volatilité (σ, en décimal) :</label>
+        <label for="sigma">Volatilité (σ, en décimal ex: 0,16 pour 16%) :</label>
         <input type="text" id="sigma" name="sigma" required><br><br>
 
         <label for="dS">Incertitude sur S :</label>
