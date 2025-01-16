@@ -22,14 +22,14 @@ PROJET-CAL-IN/
 │   └── index.html                              # page d'accueil  
 │   └── european.html                           # Page calcul d'options européennes  
 │   └── american.html                           # Page calcul d'options américaines  
-│   └── bermudan.html                           # Page calcul d'options bermudiennes
+│   └── bermudan.html                           # Page calcul d'options bermudiennes  
 ├── static/                                     # Contient les fichiers CSS, JS, img, etc.  
 │   └── style.css                               # Fichier CSS pour le style  
 ├── scripts/                                    # Contient les scripts Python  
-│   └── european_black_scholes.py               # Black Scholes option européenne (call/put)
-│   └── european_propagation_incertitudes.py    # Propagation des incertitudes Black Scholes
-│   └── american_binomial.py                    # Loi binominale pour option americaine (call/put)
-└── README.md                                   # Documentation du projet
+│   └── european_black_scholes.py               # Black Scholes option européenne (call/put)  
+│   └── european_propagation_incertitudes.py    # Propagation des incertitudes Black Scholes  
+│   └── american_binomial.py                    # Loi binominale pour option americaine (call/put)  
+└── README.md                                   # Documentation du projet  
 
 
 # Lancer l'application (en local)
