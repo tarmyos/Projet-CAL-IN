@@ -1,6 +1,6 @@
 import math
 from scipy.stats import norm
-from scripts.black_scholes import black_scholes_call, black_scholes_put
+from scripts.european_black_scholes import black_scholes_call, black_scholes_put
 
 def propagation_incertitudes_call(S, K, T, r, sigma, dS, dK, dT, dr, dSigma):
     """

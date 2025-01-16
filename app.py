@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
-from scripts.black_scholes import black_scholes_call, black_scholes_put
-from scripts.propagation_incertitudes import propagation_incertitudes_call, propagation_incertitudes_put
+from scripts.european_black_scholes import black_scholes_call, black_scholes_put
+from scripts.european_propagation_incertitudes import propagation_incertitudes_call, propagation_incertitudes_put
 
 app = Flask(__name__)
 
