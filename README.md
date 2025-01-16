@@ -23,7 +23,7 @@ PROJET-CAL-IN/
 ├── static/                # Contient les fichiers CSS, JS, img, etc.  
 │   └── style.css          # Fichier CSS pour le style  
 ├── scripts/               # Contient les scripts Python  
-│   └── black_scholes.py   # Module pour les calculs
+│   └── black_scholes.py   # Module pour les calculs  
 └── README.md              # Documentation du projet
 
 
