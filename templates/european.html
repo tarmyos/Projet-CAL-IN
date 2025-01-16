@@ -9,39 +9,35 @@
 <body>
     <nav>
         <a href="/">Accueil</a>
-        <a href="/european">Calculateur d'option vanille européenne </a>
-        <a href="/american">Calculateur d'option américaine </a>
-        <a href="/bermudan">Calculateur d'option bermudienne </a>
+        <a href="/european"> Options européennes </a>
+        <a href="/american"> Options américaines </a>
+        <a href="/bermudan"> Options bermudiennes </a>
     </nav>
     <h1> Calculateur d'une option vanille européenne (call et put) </h1>
     <form action="/european/calculate" method="POST">
+
         <label for="S">Prix de l'actif sous-jacent (S, en euros) :</label>
-        <input type="text" id="S" name="S" required><br><br>
-
-        <label for="K">Prix d'exercice (K, en euros) :</label>
-        <input type="text" id="K" name="K" required><br><br>
-
-        <label for="T">Temps jusqu'à l'échéance (T, années) :</label>
-        <input type="text" id="T" name="T" required><br><br>
-
-        <label for="r">Taux d'intérêt sans risque (r, en décimal ex: 0,07 pour 7%) :</label>
-        <input type="text" id="r" name="r" required><br><br>
-
-        <label for="sigma">Volatilité (σ, en décimal ex: 0,16 pour 16%) :</label>
-        <input type="text" id="sigma" name="sigma" required><br><br>
-
+        <input type="text" id="S" name="S" required>
         <label for="dS">Incertitude sur S :</label>
         <input type="text" id="dS" name="dS" required><br><br>
 
+        <label for="K">Prix d'exercice (K, en euros) :</label>
+        <input type="text" id="K" name="K" required>
         <label for="dK">Incertitude sur K :</label>
         <input type="text" id="dK" name="dK" required><br><br>
 
+        <label for="T">Temps jusqu'à l'échéance (T, années) :</label>
+        <input type="text" id="T" name="T" required>
         <label for="dT">Incertitude sur T :</label>
         <input type="text" id="dT" name="dT" required><br><br>
 
+        <label for="r">Taux d'intérêt sans risque (r, en décimal ex: 0,07 pour 7%) :</label>
+        <input type="text" id="r" name="r" required>
         <label for="dr">Incertitude sur r :</label>
         <input type="text" id="dr" name="dr" required><br><br>
 
+        <label for="sigma">Volatilité (σ, en décimal ex: 0,16 pour 16%) :</label>
+        <input type="text" id="sigma" name="sigma" required>
         <label for="dSigma">Incertitude sur σ :</label>
         <input type="text" id="dSigma" name="dSigma" required><br><br>
 
