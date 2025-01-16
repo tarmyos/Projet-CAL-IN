@@ -17,14 +17,19 @@ git clone https://github.com/tarmyos/Projet-CAL-IN.git
 # structure du projet
 PROJET-CAL-IN/
 │  
-├── app.py                 # Point d'entrée principal  
-├── templates/             # Contient les fichiers HTML  
-│   └── index.html, european.html, american.html, bermudan.html       
-├── static/                # Contient les fichiers CSS, JS, img, etc.  
-│   └── style.css          # Fichier CSS pour le style  
-├── scripts/               # Contient les scripts Python  
-│   └── black_scholes.py   # Module pour les calculs  
-└── README.md              # Documentation du projet
+├── app.py                                      # Point d'entrée principal  
+├── templates/                                  # Contient les fichiers HTML  
+│   └── index.html                              # page d'accueil  
+│   └── european.html                           # Page calcul d'options européennes  
+│   └── american.html                           # Page calcul d'options américaines  
+│   └── bermudan.html                           # Page calcul d'options bermudiennes
+├── static/                                     # Contient les fichiers CSS, JS, img, etc.  
+│   └── style.css                               # Fichier CSS pour le style  
+├── scripts/                                    # Contient les scripts Python  
+│   └── european_black_scholes.py               # Black Scholes option européenne (call/put)
+│   └── european_propagation_incertitudes.py    # Propagation des incertitudes Black Scholes
+│   └── american_binomial.py                    # Loi binominale pour option americaine (call/put)
+└── README.md                                   # Documentation du projet
 
 
 # Lancer l'application (en local)
