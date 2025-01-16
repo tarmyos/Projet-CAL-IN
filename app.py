@@ -16,9 +16,9 @@ def european():
 def american():
     return render_template('american.html')
 
-@app.route('/bermudian', methods=['GET'])
+@app.route('/bermudan', methods=['GET'])
 def bermudian():
-    return render_template('bermudian.html')
+    return render_template('bermudan.html')
 
 @app.route('/european/calculate', methods=['POST'])
 def calculate():
