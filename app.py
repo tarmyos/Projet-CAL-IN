@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from scripts.european_black_scholes import black_scholes_call, black_scholes_put
 from scripts.european_propagation_incertitudes import propagation_incertitudes_call, propagation_incertitudes_put
 from scripts.american_binomial import binomial_american_call, binomial_american_put
+from scripts.bermudan_binomial import binomial_bermudan_call, binomial_bermudan_put
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
@@ -64,9 +65,32 @@ def american():
         except ValueError:
             return render_template('american.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées")
 
-@app.route('/bermudan', methods=['GET'])
+@app.route('/bermudan', methods=['GET', 'POST'])
 def bermudian():
-    return render_template('bermudan.html')
+    if request.method == 'GET' :
+        return render_template('bermudan.html')
+    else:
+        try:
+            # Récupération des données du formulaire
+            S = float(request.form['S'])
+            K = float(request.form['K'])
+            T = float(request.form['T'])
+            r = float(request.form['r'])
+            sigma = float(request.form['sigma'])
+            n = int(request.form['n'])
+            exercise_times_str = request.form.getlist('exercise_times')
+            exercise_times = [float(t) for t in exercise_times_str]
+
+
+            # Calcul du prix de l'option bermudienne Call et Put
+            call_price = binomial_bermudan_call(S, K, T, r, sigma, n , exercise_times)
+            put_price = binomial_bermudan_put(S, K, T, r, sigma, n , exercise_times)
+
+            # Retour des résultats
+            return render_template('bermudan.html', call_result=call_price, put_result=put_price)
+        except ValueError:
+            return render_template('bermudan.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées")
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
