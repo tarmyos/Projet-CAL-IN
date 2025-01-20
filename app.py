@@ -91,6 +91,17 @@ def bermudian():
         except ValueError:
             return render_template('bermudan.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées")
 
+@app.route('/barrier', methods=['GET'])
+def barrier():
+    return render_template('barrier.html')
+
+@app.route('/asian', methods=['GET'])
+def asian():
+    return render_template('asian.html')
+
+@app.route('/lookback', methods=['GET'])
+def lookback():
+    return render_template('lookback.html')
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
