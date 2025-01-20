@@ -3,6 +3,7 @@ from scripts.european_black_scholes import black_scholes_call, black_scholes_put
 from scripts.european_propagation_incertitudes import propagation_incertitudes_call, propagation_incertitudes_put
 from scripts.american_binomial import binomial_american_call, binomial_american_put
 from scripts.bermudan_binomial import binomial_bermudan_call, binomial_bermudan_put
+from scripts.barrier_monte_carlo import simulate_barrier_call, simulate_barrier_put
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
@@ -91,9 +92,34 @@ def bermudian():
         except ValueError:
             return render_template('bermudan.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées")
 
-@app.route('/barrier', methods=['GET'])
+@app.route('/barrier', methods=['GET', 'POST'])
 def barrier():
-    return render_template('barrier.html')
+    if request.method == 'GET' :
+        return render_template('barrier.html')
+    else:
+        try:
+            # Récupération des données du formulaire
+            S = float(request.form['S'])
+            K = float(request.form['K'])
+            T = float(request.form['T'])
+            r = float(request.form['r'])
+            sigma = float(request.form['sigma'])
+            B = float(request.form['B'])
+            n = int(request.form['n'])
+            barrier_type = request.form['btype']
+            
+            # Calcul du prix de l'option bermudienne Call et Put
+            call_price, delta_call = simulate_barrier_call(S, K, T, r, sigma, B, n, barrier_type)
+            put_price, delta_put = simulate_barrier_put(S, K, T, r, sigma, B, n, barrier_type)
+
+            # Retour des résultas
+            return render_template('barrier.html', barrier_type=barrier_type, call_result=call_price, call_uncertainty=delta_call, put_result=put_price, put_uncertainty=delta_put)
+        except ValueError:
+            return render_template('barrier.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées")
+
+
+
+
 
 @app.route('/asian', methods=['GET'])
 def asian():
