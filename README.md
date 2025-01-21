@@ -28,7 +28,7 @@ PROJET-CAL-IN/
 │   └── bermudan.html                           # Page calcul d'options bermudiennes  
 │   └── barrier.html                            # Page calcul d'options barrières  
 │   └── asian.html                              # Page calcul d'options asiatiques  
-│   └── lookback.html                           # Page calcul d'options lookback
+│   └── lookback.html                           # Page calcul d'options lookback  
 │  
 ├── static/                                     # Contient les fichiers CSS, JS, img, etc.  
 │   └── style.css                               # Fichier CSS pour le style  
