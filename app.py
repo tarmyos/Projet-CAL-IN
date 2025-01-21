@@ -4,6 +4,7 @@ from scripts.european_propagation_incertitudes import propagation_incertitudes_c
 from scripts.american_binomial import binomial_american_call, binomial_american_put
 from scripts.bermudan_binomial import binomial_bermudan_call, binomial_bermudan_put
 from scripts.barrier_monte_carlo import simulate_barrier_call, simulate_barrier_put
+from scripts.asian_monte_carlo import simulate_asian_call, simulate_asian_put
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
@@ -121,9 +122,29 @@ def barrier():
 
 
 
-@app.route('/asian', methods=['GET'])
+@app.route('/asian', methods=['GET', 'POST'])
 def asian():
-    return render_template('asian.html')
+    if request.method == 'GET':
+        return render_template('asian.html')
+    else:
+        try:
+            # Récupération des données du formulaire
+            moyenne_type = request.form['moyenne_type']
+            S = float(request.form['S'])
+            K = float(request.form['K'])
+            T = float(request.form['T'])
+            r = float(request.form['r'])
+            sigma = float(request.form['sigma'])
+            n = int(request.form['n'])
+
+            # Calcul du prix de l'option asiatique Call et Put
+            call_price, delta_call = simulate_asian_call(S, K, T, r, sigma, n, moyenne_type)
+            put_price, delta_put = simulate_asian_put(S, K, T, r, sigma, n, moyenne_type)
+
+            # Retour des résultats
+            return render_template('asian.html',moyenne_type=moyenne_type, call_result=call_price, put_result=put_price, call_uncertainty=delta_call, put_uncertainty=delta_put)
+        except ValueError:
+            return render_template('asian.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées", call_uncertainty="Erreur dans les entrées", put_uncertainty="Erreur dans les entrées")
 
 @app.route('/lookback', methods=['GET'])
 def lookback():
