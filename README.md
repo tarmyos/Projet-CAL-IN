@@ -29,7 +29,7 @@ PROJET-CAL-IN/
 │   └── barrier.html                            # Page calcul d'options barrières  
 │   └── asian.html                              # Page calcul d'options asiatiques  
 │   └── lookback.html                           # Page calcul d'options lookback
-│    
+│  
 ├── static/                                     # Contient les fichiers CSS, JS, img, etc.  
 │   └── style.css                               # Fichier CSS pour le style  
 │  
