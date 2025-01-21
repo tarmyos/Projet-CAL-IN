@@ -5,6 +5,7 @@ from scripts.american_binomial import binomial_american_call, binomial_american_
 from scripts.bermudan_binomial import binomial_bermudan_call, binomial_bermudan_put
 from scripts.barrier_monte_carlo import simulate_barrier_call, simulate_barrier_put
 from scripts.asian_monte_carlo import simulate_asian_call, simulate_asian_put
+from scripts.lookback_monte_carlo import simulate_lookback_call, simulate_lookback_put
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
@@ -110,11 +111,11 @@ def barrier():
             barrier_type = request.form['btype']
             
             # Calcul du prix de l'option bermudienne Call et Put
-            call_price, delta_call = simulate_barrier_call(S, K, T, r, sigma, B, n, barrier_type)
-            put_price, delta_put = simulate_barrier_put(S, K, T, r, sigma, B, n, barrier_type)
+            call_price, delta_call = simulate_barrier_call(S, T, r, sigma, n)
+            put_price, delta_put = simulate_barrier_put(S, T, r, sigma, n)
 
             # Retour des résultas
-            return render_template('barrier.html', barrier_type=barrier_type, call_result=call_price, call_uncertainty=delta_call, put_result=put_price, put_uncertainty=delta_put)
+            return render_template('barrier.html', call_result=call_price, call_uncertainty=delta_call, put_result=put_price, put_uncertainty=delta_put)
         except ValueError:
             return render_template('barrier.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées")
 
@@ -146,9 +147,27 @@ def asian():
         except ValueError:
             return render_template('asian.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées", call_uncertainty="Erreur dans les entrées", put_uncertainty="Erreur dans les entrées")
 
-@app.route('/lookback', methods=['GET'])
+@app.route('/lookback', methods=['GET', 'POST'])
 def lookback():
-    return render_template('lookback.html')
+    if request.method == 'GET':
+        return render_template('lookback.html')
+    else:
+        try:
+            # Récupération des données du formulaire
+            S = float(request.form['S'])
+            T = float(request.form['T'])
+            r = float(request.form['r'])
+            sigma = float(request.form['sigma'])
+            n = int(request.form['n'])
+
+            # Calcul du prix de l'option lookback Call et Put
+            call_price, delta_call = simulate_lookback_call(S, T, r, sigma, n)
+            put_price, delta_put = simulate_lookback_put(S, T, r, sigma, n)
+
+            # Retour des résultats
+            return render_template('lookback.html', call_result=call_price, put_result=put_price, call_uncertainty=delta_call, put_uncertainty=delta_put)
+        except ValueError:
+            return render_template('lookback.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées", call_uncertainty="Erreur dans les entrées", put_uncertainty="Erreur dans les entrées")
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
