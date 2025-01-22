@@ -41,6 +41,7 @@ PROJET-CAL-IN/
 │   └── barrier_monte_carlo.py                  # Simulation monte carlo option barrier (call/put)  
 │   └── asian_monte_carlo.py                    # Simulation monte carlo option asiatique (call/put)  
 │   └── lookback_monte_carlo.py                 # Simulation monte carlo option lookback (call/put)  
+│   └── graph_monte_carlo.py                    # Créer et affiche le graphique de l'option (call/put)  
 │  
 └── README.md                                   # Documentation du projet  
 
