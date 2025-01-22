@@ -6,6 +6,7 @@ from scripts.bermudan_binomial import binomial_bermudan_call, binomial_bermudan_
 from scripts.barrier_monte_carlo import simulate_barrier_call, simulate_barrier_put
 from scripts.asian_monte_carlo import simulate_asian_call, simulate_asian_put
 from scripts.lookback_monte_carlo import simulate_lookback_call, simulate_lookback_put
+from scripts.graph_monte_carlo import graph_call, graph_put
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
@@ -111,11 +112,15 @@ def barrier():
             barrier_type = request.form['btype']
             
             # Calcul du prix de l'option bermudienne Call et Put
-            call_price, delta_call = simulate_barrier_call(S, T, r, sigma, n)
-            put_price, delta_put = simulate_barrier_put(S, T, r, sigma, n)
+            call_price, delta_call, call_discounted_payoff = simulate_barrier_call(S, K, T, r, sigma, B, n, barrier_type)
+            put_price, delta_put, put_discounted_payoff = simulate_barrier_put(S, K, T, r, sigma, B, n, barrier_type)
+
+            # Générer les graphiques des trajectoires Monte Carlo
+            call_graph = graph_call(call_discounted_payoff)
+            put_graph = graph_put(put_discounted_payoff)
 
             # Retour des résultas
-            return render_template('barrier.html', call_result=call_price, call_uncertainty=delta_call, put_result=put_price, put_uncertainty=delta_put)
+            return render_template('barrier.html', call_result=call_price, call_uncertainty=delta_call, put_result=put_price, put_uncertainty=delta_put, call_graph=call_graph, put_graph=put_graph)
         except ValueError:
             return render_template('barrier.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées")
 
@@ -139,11 +144,15 @@ def asian():
             n = int(request.form['n'])
 
             # Calcul du prix de l'option asiatique Call et Put
-            call_price, delta_call = simulate_asian_call(S, K, T, r, sigma, n, moyenne_type)
-            put_price, delta_put = simulate_asian_put(S, K, T, r, sigma, n, moyenne_type)
+            call_price, delta_call,call_discounted_payoff = simulate_asian_call(S, K, T, r, sigma, n, moyenne_type)
+            put_price, delta_put,put_discounted_payoff = simulate_asian_put(S, K, T, r, sigma, n, moyenne_type)
+
+            # Générer les graphiques des trajectoires Monte Carlo
+            call_graph = graph_call(call_discounted_payoff)
+            put_graph = graph_put(put_discounted_payoff)
 
             # Retour des résultats
-            return render_template('asian.html',moyenne_type=moyenne_type, call_result=call_price, put_result=put_price, call_uncertainty=delta_call, put_uncertainty=delta_put)
+            return render_template('asian.html',moyenne_type=moyenne_type, call_result=call_price, put_result=put_price, call_uncertainty=delta_call, put_uncertainty=delta_put, call_graph=call_graph, put_graph=put_graph)
         except ValueError:
             return render_template('asian.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées", call_uncertainty="Erreur dans les entrées", put_uncertainty="Erreur dans les entrées")
 
@@ -161,11 +170,15 @@ def lookback():
             n = int(request.form['n'])
 
             # Calcul du prix de l'option lookback Call et Put
-            call_price, delta_call = simulate_lookback_call(S, T, r, sigma, n)
-            put_price, delta_put = simulate_lookback_put(S, T, r, sigma, n)
+            call_price, delta_call, call_discounted_payoff = simulate_lookback_call(S, T, r, sigma, n)
+            put_price, delta_put, put_discounted_payoff = simulate_lookback_put(S, T, r, sigma, n)
+
+            # Générer les graphiques des trajectoires Monte Carlo
+            call_graph = graph_call(call_discounted_payoff)
+            put_graph = graph_put(put_discounted_payoff)
 
             # Retour des résultats
-            return render_template('lookback.html', call_result=call_price, put_result=put_price, call_uncertainty=delta_call, put_uncertainty=delta_put)
+            return render_template('lookback.html', call_result=call_price, put_result=put_price, call_uncertainty=delta_call, put_uncertainty=delta_put, call_graph=call_graph, put_graph=put_graph)
         except ValueError:
             return render_template('lookback.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées", call_uncertainty="Erreur dans les entrées", put_uncertainty="Erreur dans les entrées")
 

@@ -55,5 +55,16 @@
     <p>Incertitudes de l'option asiatique (Moyenne {{moyenne_type}}) (Put) : {{ put_uncertainty}}</p>
     {% endif %}
 
+    {% if call_graph %}
+    <h3>Trajectoires Monte Carlo - Option Call :</h3>
+    <img src="data:image/png;base64,{{ call_graph }}" alt="Graphique Call">
+    {% endif %}
+
+    {% if put_graph %}
+    <h3>Trajectoires Monte Carlo - Option Put :</h3>
+    <img src="data:image/png;base64,{{ put_graph }}" alt="Graphique Put">
+    {% endif %}
+
+
 </body>
 </html>

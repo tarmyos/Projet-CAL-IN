@@ -42,7 +42,7 @@ def simulate_barrier_call(S0, K, T, r, sigma, B, n, barrier_type):
     call_price = np.mean(discounted_payoff)
     delta_call = np.std(discounted_payoff) / math.sqrt(n)
 
-    return call_price, delta_call
+    return call_price, delta_call, discounted_payoff
 
 
 def simulate_barrier_put(S0, K, T, r, sigma, B, n, barrier_type):
@@ -86,4 +86,4 @@ def simulate_barrier_put(S0, K, T, r, sigma, B, n, barrier_type):
     put_price = np.mean(discounted_payoff)
     delta_put = np.std(discounted_payoff) / math.sqrt(n)
 
-    return put_price, delta_put
+    return put_price, delta_put, discounted_payoff

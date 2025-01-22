@@ -30,7 +30,7 @@ def simulate_lookback_call(S0, T, r, sigma, n):
     call_price = np.mean(discounted_payoff)
     delta_call = np.std(discounted_payoff) / math.sqrt(n)
 
-    return call_price, delta_call
+    return call_price, delta_call, discounted_payoff
 
 
 def simulate_lookback_put(S0, T, r, sigma, n):
@@ -62,4 +62,4 @@ def simulate_lookback_put(S0, T, r, sigma, n):
     put_price = np.mean(discounted_payoff)
     delta_put = np.std(discounted_payoff) / math.sqrt(n)
 
-    return put_price, delta_put
+    return put_price, delta_put, discounted_payoff
