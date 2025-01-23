@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+    <header>
+        <h1> CAL-IN </h1>
+    </header>
     <nav>
         <a href="/">Accueil</a>
         <a href="/european"> Options européennes </a>
@@ -16,45 +19,51 @@
         <a href="/asian"> Options asiatiques </a>
         <a href="/lookback"> Options lookback </a>
     </nav>
-    <h1> Calculateur d'une option vanille bermudienne (call et put) </h1>
+    <main>
+        <section class="formulaire">
+            <h2> Calculateur d'une option vanille bermudienne (call et put) </h2>
+                <form method="POST">
+                    <label for="S">Prix de l'actif sous-jacent (S, en euros) :</label>
+                    <input type="text" id="S" name="S" required><br><br>
+            
+                    <label for="K">Prix d'exercice (K, en euros) :</label>
+                    <input type="text" id="K" name="K" required><br><br>
+            
+                    <label for="T">Temps jusqu'à l'échéance (T, en années ou fraction d'années ex: 3 mois = 0.25) :</label>
+                    <input type="text" id="T" name="T" required><br><br>
+            
+                    <label for="r">Taux d'intérêt sans risque (r, en décimal) :</label>
+                    <input type="text" id="r" name="r" required><br><br>
+            
+                    <label for="sigma">Volatilité (σ, en décimal) :</label>
+                    <input type="text" id="sigma" name="sigma" required><br><br>
+            
+                    <label for="n">Nombre d'intervalles : </label>
+                    <input type="text" id="n" name="n" value="100" required><br><br>
+            
+                    <label for="exercise_times">Dates d'exercice : (maintenir CTRL pour plusieurs dates)</label>
+                    <select id="exercise_times" name="exercise_times" multiple size="5" required>
+                        <option value="0">Début (0)</option>
+                        <option value="0.25">3 mois (0.25)</option>
+                        <option value="0.5">6 mois (0.5)</option>
+                        <option value="0.75">9 mois (0.75)</option>
+                        <option value="1">Fin (1)</option>
+                    </select><br><br>
+            
+                    <button type="submit">Calculer</button>
+                </form>
+        </section>
+        <section class="resultats">
+            {% if call_result is not none and put_result is not none %}
+            <h2>Résultats :</h2>
+            <p>Prix de l'option bermudienne Call : {{ call_result }}</p>
+            <p>Prix de l'option bermudienne Put : {{ put_result }}</p>
+            {% endif %}
+        </section>
+    </main>
+    <footer>
 
-    <form method="POST">
-        <label for="S">Prix de l'actif sous-jacent (S, en euros) :</label>
-        <input type="text" id="S" name="S" required><br><br>
-
-        <label for="K">Prix d'exercice (K, en euros) :</label>
-        <input type="text" id="K" name="K" required><br><br>
-
-        <label for="T">Temps jusqu'à l'échéance (T, en années ou fraction d'années ex: 3 mois = 0.25) :</label>
-        <input type="text" id="T" name="T" required><br><br>
-
-        <label for="r">Taux d'intérêt sans risque (r, en décimal) :</label>
-        <input type="text" id="r" name="r" required><br><br>
-
-        <label for="sigma">Volatilité (σ, en décimal) :</label>
-        <input type="text" id="sigma" name="sigma" required><br><br>
-
-        <label for="n">Nombre d'intervalles : </label>
-        <input type="text" id="n" name="n" value="100" required><br><br>
-
-        <label for="exercise_times">Dates d'exercice : (maintenir CTRL pour plusieurs dates)</label>
-        <select id="exercise_times" name="exercise_times" multiple size="5" required>
-            <option value="0">Début (0)</option>
-            <option value="0.25">3 mois (0.25)</option>
-            <option value="0.5">6 mois (0.5)</option>
-            <option value="0.75">9 mois (0.75)</option>
-            <option value="1">Fin (1)</option>
-        </select><br><br>
-
-
-        <button type="submit">Calculer</button>
-    </form>
-
-    {% if call_result is not none and put_result is not none %}
-    <h2>Résultats :</h2>
-    <p>Prix de l'option bermudienne Call : {{ call_result }}</p>
-    <p>Prix de l'option bermudienne Put : {{ put_result }}</p>
-    {% endif %}
+    </footer>
     
 </body>
 </html>
