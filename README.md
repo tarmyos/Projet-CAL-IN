@@ -6,14 +6,9 @@
 
 pip install flask
 
-
-
 -cloner le projet
 
 git clone https://github.com/tarmyos/Projet-CAL-IN.git
-
-
-
 # structure du projet
   
 PROJET-CAL-IN/
