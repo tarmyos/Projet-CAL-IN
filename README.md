@@ -31,6 +31,7 @@ PROJET-CAL-IN/
 ├── scripts/                                    # Contient les scripts Python  
 │   └── european_black_scholes.py               # Black Scholes option européenne (call/put)  
 │   └── european_propagation_incertitudes.py    # Propagation des incertitudes Black Scholes  
+│   └── graph_black_scholes                     # Créer et affiche graphiques (options et PnL)/S  
 │   └── american_binomial.py                    # Loi binominale pour option americaine (call/put)  
 │   └── bermudan_binomial.py                    # Loi binominale pour option bermudienne (call/put)  
 │   └── barrier_monte_carlo.py                  # Simulation monte carlo option barrier (call/put)  
