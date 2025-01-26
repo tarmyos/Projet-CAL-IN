@@ -7,6 +7,7 @@ from scripts.barrier_monte_carlo import simulate_barrier_call, simulate_barrier_
 from scripts.asian_monte_carlo import simulate_asian_call, simulate_asian_put
 from scripts.lookback_monte_carlo import simulate_lookback_call, simulate_lookback_put
 from scripts.graph_monte_carlo import graph_call, graph_put
+from scripts.graph_black_scholes import generate_black_scholes_graphs
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
@@ -33,16 +34,23 @@ def european():
             dr = float(request.form['dr'])
             dSigma = float(request.form['dSigma'])
 
-
             # Calcul des prix des options et de leurs incertitudes associées
             call_price, delta_call = propagation_incertitudes_call(S, K, T, r, sigma, dS, dK, dT, dr, dSigma)
             put_price, delta_put = propagation_incertitudes_put(S, K, T, r, sigma, dS, dK, dT, dr, dSigma)
 
+            # Générer les graphiques des options Call et Put
+            graph_url_call, graph_url_put = generate_black_scholes_graphs(S, K, T, r, sigma)
+
             # Retour des résultats
-            return render_template('european.html', call_result=call_price, put_result=put_price, call_uncertainty=delta_call, put_uncertainty=delta_put)
+            return render_template('european.html', call_result=call_price, put_result=put_price, 
+                                   call_uncertainty=delta_call, put_uncertainty=delta_put, 
+                                   graph_url_call=graph_url_call, graph_url_put=graph_url_put)
 
         except ValueError:
-            return render_template('european.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées", call_uncertainty="Erreur dans les entrées", put_uncertainty="Erreur dans les entrées")
+            return render_template('european.html', call_result="Erreur dans les entrées", 
+                                   put_result="Erreur dans les entrées", 
+                                   call_uncertainty="Erreur dans les entrées", 
+                                   put_uncertainty="Erreur dans les entrées")
 
 
 @app.route('/american', methods=['GET', 'POST'])
@@ -123,10 +131,6 @@ def barrier():
             return render_template('barrier.html', call_result=call_price, call_uncertainty=delta_call, put_result=put_price, put_uncertainty=delta_put, call_graph=call_graph, put_graph=put_graph)
         except ValueError:
             return render_template('barrier.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées")
-
-
-
-
 
 @app.route('/asian', methods=['GET', 'POST'])
 def asian():

@@ -61,6 +61,16 @@
             <p>Prix de l'option Put : {{ put_result }}</p>
             <p>Incertitude sur l'option Put : {{ put_uncertainty }}</p>
             {% endif %}
+            {% if graph_url_call %}
+            <h2>Graphique de l'Option Call et PnL</h2>
+            <img src="data:image/png;base64,{{ graph_url_call }}" alt="Graphique Option Call et PnL">
+            {% endif %}
+        
+            {% if graph_url_put %}
+            <h2>Graphique de l'Option Put et PnL</h2>
+            <img src="data:image/png;base64,{{ graph_url_put }}" alt="Graphique Option Put et PnL">
+            {% endif %}
+        
         </section>
     </main>
     <footer>
