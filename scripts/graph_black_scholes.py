@@ -10,7 +10,7 @@ def generate_black_scholes_graphs(S0, K, T, r, sigma):
         raise ValueError("Erreur: Tous les paramètres doivent être positifs.")
 
     # Plage des prix de l'actif sous-jacent de 0 à 2*S0
-    S_values = list(range(1, int(2 * S0) + 1))  # Plage plus large pour éviter de petits échantillons
+    S_values = list(range(1, int(2 * K) + 1))  # Plage plus large pour éviter de petits échantillons
         
     # Calcul du prix initial de l'option Call et Put
     call_price_initial = black_scholes_call(S0, K, T, r, sigma)[0]
