@@ -40,6 +40,9 @@ PROJET-CAL-IN/
 │   └── graph_monte_carlo.py                    # Créer et affiche le graphique de l'option (call/put)  
 │  
 └── README.md                                   # Documentation du projet  
+│  
+└── Procfile                                    # Render File (start instance) 
+└── requirements.txt                            # Render File (install library)
 
 
 # Lancer l'application (en local)
