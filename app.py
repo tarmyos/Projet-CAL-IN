@@ -28,8 +28,10 @@ def european():
             sigma = float(request.form['sigma'])
 
             # Incertitudes
-            dS = float(request.form['dS'])
-            dK = float(request.form['dK'])
+            #dS = float(request.form['dS'])
+            dS = 0
+            #dK = float(request.form['dK'])
+            dK = 0
             dT = float(request.form['dT'])
             dr = float(request.form['dr'])
             dSigma = float(request.form['dSigma'])
