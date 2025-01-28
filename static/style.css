@@ -6,7 +6,7 @@ body {
     background-image: url('https://www.forbes.fr/wp-content/uploads/2021/01/gettyimages-1201626412-870x580.jpg');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     font-family: Arial, sans-serif;
     color: white;
 }
@@ -40,6 +40,105 @@ nav a {
 
 nav a:hover {
     text-decoration: underline;
+}
+
+/* Conteneur principal */
+main {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    gap: 20px;
+}
+
+/* Style de la colonne de gauche (formulaire) */
+.formulaire {
+    flex: 1;
+    padding: 10px;
+}
+
+.formulaire h1 {
+    text-align: left;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Deux colonnes : labels et inputs */
+    gap: 10px 15px; /* Espacement réduit entre les éléments */
+    align-items: center;
+}
+
+label {
+    text-align: right;
+    font-size: 0.9em;
+}
+
+input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    grid-column: 1 / -1; /* Bouton sur toute la largeur */
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Style de la colonne de droite (résultats et graphiques) */
+.resultats {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-height: calc(100% - 20px); /* Empêche les résultats de dépasser le formulaire */
+    overflow-y: auto;
+}
+
+.resultats h2 {
+    text-align: left;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+.resultats p {
+    font-size: 0.9em;
+    margin: 5px 0;
+}
+
+.resultats img {
+    display: block;
+    margin: 10px auto;
+    max-width: 100%;
+    max-height: 25%; /* Limite la hauteur des graphiques */
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+/* Responsiveness */
+@media screen and (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+
+    .formulaire, .resultats {
+        width: 100%;
+    }
 }
 
 /* Section principale */
