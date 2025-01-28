@@ -36,6 +36,9 @@ def european():
             dr = float(request.form['dr'])
             dSigma = float(request.form['dSigma'])
 
+            # Type d'option
+            option_type = request.form['optionType']
+
             # Calcul des prix des options et de leurs incertitudes associées
             call_price, delta_call = propagation_incertitudes_call(S, K, T, r, sigma, dS, dK, dT, dr, dSigma)
             put_price, delta_put = propagation_incertitudes_put(S, K, T, r, sigma, dS, dK, dT, dr, dSigma)
@@ -46,10 +49,10 @@ def european():
             # Retour des résultats
             return render_template('european.html', call_result=call_price, put_result=put_price, 
                                    call_uncertainty=delta_call, put_uncertainty=delta_put, 
-                                   graph_url_call=graph_url_call, graph_url_put=graph_url_put)
+                                   graph_url_call=graph_url_call, graph_url_put=graph_url_put, option_type=option_type)
 
         except ValueError:
-            return render_template('european.html', call_result="Erreur dans les entrées", 
+            return render_template('european.htl', call_result="Erreur dans les entrées", 
                                    put_result="Erreur dans les entrées", 
                                    call_uncertainty="Erreur dans les entrées", 
                                    put_uncertainty="Erreur dans les entrées")
@@ -69,12 +72,16 @@ def american():
             sigma = float(request.form['sigma'])
             n = int(request.form['n'])
 
+            # Type d'option
+            option_type = request.form['optionType']
+
             # Calcul du prix de l'option américaine Call et Put
             call_price = binomial_american_call(S, K, T, r, sigma, n)
             put_price = binomial_american_put(S, K, T, r, sigma, n)
 
             # Retour des résultats
-            return render_template('american.html', call_result=call_price, put_result=put_price)
+            return render_template('american.html', call_result=call_price, put_result=put_price,
+                                    option_type=option_type)
         
         except ValueError:
             return render_template('american.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées")
@@ -95,13 +102,16 @@ def bermudian():
             exercise_times_str = request.form.getlist('exercise_times')
             exercise_times = [float(t) for t in exercise_times_str]
 
+            # Type d'option
+            option_type = request.form['optionType']
 
             # Calcul du prix de l'option bermudienne Call et Put
             call_price = binomial_bermudan_call(S, K, T, r, sigma, n , exercise_times)
             put_price = binomial_bermudan_put(S, K, T, r, sigma, n , exercise_times)
 
             # Retour des résultats
-            return render_template('bermudan.html', call_result=call_price, put_result=put_price)
+            return render_template('bermudan.html', call_result=call_price, put_result=put_price,
+                                   option_type=option_type)
         except ValueError:
             return render_template('bermudan.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées")
 
@@ -121,6 +131,9 @@ def barrier():
             n = int(request.form['n'])
             barrier_type = request.form['btype']
             
+            # Type d'option
+            option_type = request.form['optionType']
+
             # Calcul du prix de l'option bermudienne Call et Put
             call_price, delta_call, call_discounted_payoff = simulate_barrier_call(S, K, T, r, sigma, B, n, barrier_type)
             put_price, delta_put, put_discounted_payoff = simulate_barrier_put(S, K, T, r, sigma, B, n, barrier_type)
@@ -130,7 +143,9 @@ def barrier():
             put_graph = graph_put(put_discounted_payoff)
 
             # Retour des résultas
-            return render_template('barrier.html', call_result=call_price, call_uncertainty=delta_call, put_result=put_price, put_uncertainty=delta_put, call_graph=call_graph, put_graph=put_graph)
+            return render_template('barrier.html', call_result=call_price, call_uncertainty=delta_call,
+                                    put_result=put_price, put_uncertainty=delta_put, call_graph=call_graph,
+                                    put_graph=put_graph, option_type=option_type)
         except ValueError:
             return render_template('barrier.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées")
 
@@ -149,6 +164,9 @@ def asian():
             sigma = float(request.form['sigma'])
             n = int(request.form['n'])
 
+            # Type d'option
+            option_type = request.form['optionType']
+
             # Calcul du prix de l'option asiatique Call et Put
             call_price, delta_call,call_discounted_payoff = simulate_asian_call(S, K, T, r, sigma, n, moyenne_type)
             put_price, delta_put,put_discounted_payoff = simulate_asian_put(S, K, T, r, sigma, n, moyenne_type)
@@ -158,7 +176,10 @@ def asian():
             put_graph = graph_put(put_discounted_payoff)
 
             # Retour des résultats
-            return render_template('asian.html',moyenne_type=moyenne_type, call_result=call_price, put_result=put_price, call_uncertainty=delta_call, put_uncertainty=delta_put, call_graph=call_graph, put_graph=put_graph)
+            return render_template('asian.html',moyenne_type=moyenne_type, call_result=call_price,
+                                    put_result=put_price, call_uncertainty=delta_call,
+                                    put_uncertainty=delta_put, call_graph=call_graph,
+                                    put_graph=put_graph, option_type=option_type)
         except ValueError:
             return render_template('asian.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées", call_uncertainty="Erreur dans les entrées", put_uncertainty="Erreur dans les entrées")
 
@@ -175,6 +196,9 @@ def lookback():
             sigma = float(request.form['sigma'])
             n = int(request.form['n'])
 
+            # Type d'option
+            option_type = request.form['optionType']
+
             # Calcul du prix de l'option lookback Call et Put
             call_price, delta_call, call_discounted_payoff = simulate_lookback_call(S, T, r, sigma, n)
             put_price, delta_put, put_discounted_payoff = simulate_lookback_put(S, T, r, sigma, n)
@@ -184,7 +208,9 @@ def lookback():
             put_graph = graph_put(put_discounted_payoff)
 
             # Retour des résultats
-            return render_template('lookback.html', call_result=call_price, put_result=put_price, call_uncertainty=delta_call, put_uncertainty=delta_put, call_graph=call_graph, put_graph=put_graph)
+            return render_template('lookback.html', call_result=call_price, put_result=put_price,
+                                    call_uncertainty=delta_call, put_uncertainty=delta_put,
+                                    call_graph=call_graph, put_graph=put_graph, option_type=option_type)
         except ValueError:
             return render_template('lookback.html', call_result="Erreur dans les entrées", put_result="Erreur dans les entrées", call_uncertainty="Erreur dans les entrées", put_uncertainty="Erreur dans les entrées")
 

@@ -47,28 +47,38 @@
                 <label for="n">Nombre d'intervalles : (simu. monte carlo)</label>
                 <input type="text" id="n" name="n" value="100" required><br><br>
 
+                <div class="double-button">
+                    <input type="radio" id="call" name="optionType" value="CALL" checked>
+                    <label for="call">CALL</label>
+                
+                    <input type="radio" id="put" name="optionType" value="PUT">
+                    <label for="put">PUT</label>
+                </div>
+
                 <button type="submit">Calculer</button>
             </form>
         </section>
         <section class="resultats">
             {% if moyenne_type is not none and call_result is not none and put_result is not none %}
-            <h2>Résultats :</h2>
-            <p>Prix estimé de l'option asiatique (Moyenne {{moyenne_type}})  (Call) : {{ call_result }}</p>
-            <p>Incertitudes de l'option asiatique (Moyenne {{moyenne_type}}) (Call) : {{ call_uncertainty}}</p>
-            <p>Prix estimé de l'option asiatique (Moyenne {{moyenne_type}})  (Put) : {{ put_result }}</p>
-            <p>Incertitudes de l'option asiatique (Moyenne {{moyenne_type}}) (Put) : {{ put_uncertainty}}</p>
-            {% endif %}
-        </section>
-        <section class="graphs">
-            {% if call_graph %}
-            <h3>Trajectoires Monte Carlo - Option Call :</h3>
-            <img src="data:image/png;base64,{{ call_graph }}" alt="Graphique Call">
+                <h2>Résultats :</h2>
+                {% if option_type == 'CALL' %}
+                    <p>Prix estimé de l'option asiatique (Moyenne {{moyenne_type}})  (Call) : {{ call_result }}</p>
+                    <p>Incertitudes de l'option asiatique (Moyenne {{moyenne_type}}) (Call) : {{ call_uncertainty}}</p>
+                    {% if call_graph %}
+                        <h2>Trajectoires Monte Carlo - Option Call :</h2>
+                        <img src="data:image/png;base64,{{ call_graph }}" alt="Graphique Call">
+                    {% endif %}
+                {% endif %}
+                {% if option_type == 'PUT' %}
+                    <p>Prix estimé de l'option asiatique (Moyenne {{moyenne_type}})  (Put) : {{ put_result }}</p>
+                    <p>Incertitudes de l'option asiatique (Moyenne {{moyenne_type}}) (Put) : {{ put_uncertainty}}</p>
+                    {% if put_graph %}
+                    <h3>Trajectoires Monte Carlo - Option Put :</h3>
+                    <img src="data:image/png;base64,{{ put_graph }}" alt="Graphique Put">
+                    {% endif %}
+                {% endif %}
             {% endif %}
 
-            {% if put_graph %}
-            <h3>Trajectoires Monte Carlo - Option Put :</h3>
-            <img src="data:image/png;base64,{{ put_graph }}" alt="Graphique Put">
-            {% endif %}
         </section>
     </main>
     <footer>
