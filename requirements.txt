@@ -2,4 +2,4 @@ Flask==3.1.0
 numpy==1.26.0
 scipy==1.15.0
 matplotlib==3.8.0
-gunicorn==20.1.0
+gunicorn==22.0.0
