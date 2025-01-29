@@ -14,6 +14,10 @@ app = Flask(__name__)
 def index():
     return render_template('index.html', call_result=None, put_result=None)
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory('static/images', 'logo_CAL-IN.png', mimetype='image/png')
+
 @app.route('/european', methods=['GET', 'POST'])
 def european():
     if request.method == 'GET':
