@@ -27,6 +27,8 @@ PROJET-CAL-IN/
 │  
 ├── static/                                     # Contient les fichiers CSS, JS, img, etc.  
 │   └── style.css                               # Fichier CSS pour le style  
+│   └── images/                                 # Dossier contenant les images du projet  
+│       └── logo_CAL-in.png                     # Logo du projet  
 │  
 ├── scripts/                                    # Contient les scripts Python  
 │   └── european_black_scholes.py               # Black Scholes option européenne (call/put)  
