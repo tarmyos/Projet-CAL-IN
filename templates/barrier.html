@@ -66,8 +66,9 @@
             {% if barrier_type is not none and call_result is not none and put_result is not none %}
                 <h2>Résultats :</h2>
                 {% if option_type == 'CALL' %}
-                    <p>Prix estimé de l'option barrier {{barrier_type}}  (Call) : {{ call_result }}</p>
-                    <p>Incertitudes de l'option barrier {{barrier_type}} (Call) : {{ call_uncertainty}}</p>
+                    <h4>Prix actuel de l'actif {{S}} €</h4>
+                    <h4>Prix d'exercice de l'option {{K}} €</h4>
+                    <h4>Prix estimé de l'option barrier {{barrier_type}}  (Call) : {{ call_result }} +/- {{ call_uncertainty}} €</h4>
                     {% if call_graph %}
                         <h2>Trajectoires Monte Carlo - Option Call :</h2>
                         <img src="data:image/png;base64,{{ call_graph }}" alt="Graphique Call">
@@ -75,8 +76,9 @@
                 {% endif %}
                 
                 {% if option_type == 'PUT' %}
-                    <p>Prix estimé de l'option barrier {{barrier_type}}  (Put) : {{ put_result }}</p>
-                    <p>Incertitudes de l'option barrier {{barrier_type}} (Put) : {{ put_uncertainty}}</p>
+                    <h4>Prix actuel de l'actif {{S}} €</h4>
+                    <h4>Prix d'exercice de l'option {{K}} €</h4>
+                    <h4>Prix estimé de l'option barrier {{barrier_type}}  (Put) : {{ put_result }} +/- {{ put_uncertainty}} €</h4>
                     {% if put_graph %}
                         <h2>Trajectoires Monte Carlo - Option Put :</h2>
                         <img src="data:image/png;base64,{{ put_graph }}" alt="Graphique Put">
@@ -86,8 +88,68 @@
         
         </section>
     </main>
-    <footer>
+    <br>
+    <div class="explications">
 
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <h1>Calcul des Options Barrières</h1>
+
+        <h2>Définition</h2>
+        <p>Les options barrières sont des options exotiques dont l'existence ou la valeur dépend de l'atteinte d'un certain niveau de prix appelé <strong>barrière</strong>.</p>
+
+        <h2>Types d'Options Barrières</h2>
+        <ul>
+            <li><strong>Knock-in</strong> : L'option prend effet si la barrière est atteinte.</li>
+            <li><strong>Knock-out</strong> : L'option est désactivée si la barrière est atteinte.</li>
+        </ul>
+
+        <h2>Formules de Valorisation</h2>
+
+        <h3>Hypothèses de Base</h3>
+        <p>On suppose que le prix de l'actif sous-jacent suit un processus de diffusion géométrique brownien :</p>
+        <p>
+            \(
+            dS_t = \mu S_t dt + \sigma S_t dW_t
+            \)
+        </p>
+
+        <h3>Option Barrière Knock-Out (Call Européen)</h3>
+        <p>La formule de valorisation pour un call knock-out avec barrière \( B \) et prix d'exercice \( K \) est donnée par :</p>
+        <p>
+            \(
+            C_{KO} = C_{BS} - C_{refl}
+            \)
+        </p>
+        <p>où :</p>
+        <ul>
+            <li>\( C_{BS} \) est le prix du call selon Black-Scholes</li>
+            <li>\( C_{refl} \) est la correction par la méthode de réflexion</li>
+        </ul>
+
+        <h3>Méthode de Réflexion</h3>
+        <p>La correction est :</p>
+        <p>
+            \(
+            C_{refl} = C_{BS}(S = \frac{B^2}{S_0}, K, T, r, \sigma)
+            \)
+        </p>
+
+        <h2>Paramètres</h2>
+        <ul>
+            <li>\( S_0 \) : Prix initial de l'actif sous-jacent</li>
+            <li>\( K \) : Prix d'exercice de l'option</li>
+            <li>\( B \) : Niveau de la barrière</li>
+            <li>\( T \) : Maturité de l'option</li>
+            <li>\( r \) : Taux d'intérêt sans risque</li>
+            <li>\( \sigma \) : Volatilité de l'actif sous-jacent</li>
+        </ul>
+
+        <h2>Conclusion</h2>
+        <p>Le calcul des options barrières nécessite une compréhension des techniques avancées de valorisation, notamment la méthode de réflexion pour ajuster les formules de Black-Scholes standard.</p>
+    </div>
+    <footer>
+        <p>&copy; 2024-2025 CAL-IN. Tous droits réservés.</p>
     </footer>
     
 </body>

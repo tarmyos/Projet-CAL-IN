@@ -55,8 +55,9 @@
             {% if call_result is not none and put_result is not none and call_uncertainty is not none and put_uncertainty is not none %}
                 <h2>Résultats :</h2>
                 {% if option_type == 'CALL' %}
-                    <p>Prix estimé de l'option lookback (Call) : {{ call_result }}</p>
-                    <p>Incertitudes de l'option lookback (Call) : {{ call_uncertainty}}</p>
+                    <h4>Prix actuel de l'actif {{S}} €</h4>
+                    <h4>Prix d'exercice de l'option {{K}} €</h4>
+                    <h4>Prix estimé de l'option lookback (Call) : {{ call_result }} +/- {{ call_uncertainty}} €</h4>
                     {% if call_graph %}
                         <h2>Trajectoires Monte Carlo - Option Call :</h2>
                         <img src="data:image/png;base64,{{ call_graph }}" alt="Graphique Call">
@@ -64,19 +65,70 @@
                 {% endif %}
 
                 {% if option_type == 'PUT' %}
-                        <p>Prix estimé de l'option lookback (Put) : {{ put_result }}</p>
-                        <p>Incertitudes de l'option lookback (Put) : {{ put_uncertainty}}</p>
-                        {% if put_graph %}
-                            <h3>Trajectoires Monte Carlo - Option Put :</h3>
-                            <img src="data:image/png;base64,{{ put_graph }}" alt="Graphique Put">
-                        {% endif %}
+                    <h4>Prix actuel de l'actif {{S}} €</h4>
+                    <h4>Prix d'exercice de l'option {{K}} €</h4>
+                    <h4>Prix estimé de l'option lookback (Put) : {{ put_result }} +/- {{ put_uncertainty}} €</h4>
+                    {% if put_graph %}
+                        <h3>Trajectoires Monte Carlo - Option Put :</h3>
+                        <img src="data:image/png;base64,{{ put_graph }}" alt="Graphique Put">
+                    {% endif %}
                 {% endif %}
             {% endif %}
         
         </section>
     </main>
-    <footer>
+    <br>
+    <div class="explications">
+        
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <h1>Calcul Théorique des Options Lookback</h1>
 
+        <h2>Introduction</h2>
+        <p>Les options lookback sont des options exotiques dont le payoff dépend du prix maximum ou minimum de l'actif sous-jacent sur la durée de vie de l'option. Elles offrent l'avantage de "regarder en arrière" pour déterminer le prix optimal d'exercice.</p>
+
+        <h2>Formules de Valorisation</h2>
+        <h3>Hypothèses de Modèle de Black-Scholes</h3>
+        <p>On suppose que le prix de l'actif sous-jacent \( S_t \) suit un processus de diffusion géométrique :</p>
+        <p>\[
+            dS_t = \mu S_t dt + \sigma S_t dW_t
+        \]</p>
+        <p>où :</p>
+        <ul>
+            <li>\( \mu \) est le taux de croissance attendu,</li>
+            <li>\( \sigma \) est la volatilité,</li>
+            <li>\( W_t \) est un mouvement brownien standard.</li>
+        </ul>
+
+        <h3>Option Lookback de Type Floating Strike (Call)</h3>
+        <p>Le payoff est défini par :</p>
+        <p>\[
+            \\max(S_T - S_{\min}, 0)
+        \]</p>
+        <p>La formule de valorisation est :</p>
+        <p>\[
+            C = S_0 \Phi(d_1) - S_{\min} e^{-rT} \Phi(d_2)
+        \]</p>
+        <p>avec :</p>
+        <p>\[
+            d_1 = \frac{\ln\left(\frac{S_0}{S_{\min}}\right) + \left(r + \frac{\sigma^2}{2}\right)T}{\sigma \sqrt{T}}, \quad
+            d_2 = d_1 - \sigma \sqrt{T}
+        \]</p>
+
+        <h3>Option Lookback de Type Fixed Strike (Call)</h3>
+        <p>Le payoff est défini par :</p>
+        <p>\[
+            \\max(M - K, 0)
+        \]</p>
+        <p>où \( M \) est le prix maximum atteint par l'actif pendant la vie de l'option.</p>
+        <p>La valorisation est plus complexe et nécessite des solutions analytiques avancées impliquant des fonctions de distribution cumulée bivariées.</p>
+
+        <h2>Conclusion</h2>
+        <p>Les options lookback permettent une optimisation du payoff, mais leur valorisation nécessite des techniques avancées en mathématiques financières, notamment l'utilisation de la formule de Black-Scholes étendue et des processus stochastiques.</p>
+        </div>
+
+    <footer>
+        <p>&copy; 2024-2025 CAL-IN. Tous droits réservés.</p>
     </footer>
 </body>
 </html>

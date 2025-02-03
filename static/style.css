@@ -213,3 +213,64 @@ footer {
     color: white;
 }
 
+/* Style de la section des explications */
+.explications {
+    background-color: rgba(0, 0, 0, 0.7); /* Fond noir semi-transparent */
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 900px;
+    line-height: 1.6;
+}
+
+/* Style des titres */
+.explications h1, 
+.explications h2, 
+.explications h3 {
+    color: #FFD700; /* Doré pour ressortir */
+    text-align: center;
+}
+
+/* Style des paragraphes */
+.explications p {
+    font-size: 1.1em;
+    text-align: justify;
+}
+
+/* Style des formules mathématiques */
+.explications .formula {
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1); /* Fond léger pour mettre en valeur */
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+/* Style de la liste */
+.explications ul {
+    list-style-type: square;
+    margin-left: 20px;
+}
+
+.explications li {
+    margin: 5px 0;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .explications {
+        padding: 15px;
+        margin: 10px;
+    }
+    
+    .explications h1 {
+        font-size: 1.8em;
+    }
+
+    .explications p, .explications li {
+        font-size: 1em;
+    }
+}

@@ -63,16 +63,18 @@
             {% if moyenne_type is not none and call_result is not none and put_result is not none %}
                 <h2>Résultats :</h2>
                 {% if option_type == 'CALL' %}
-                    <p>Prix estimé de l'option asiatique (Moyenne {{moyenne_type}})  (Call) : {{ call_result }}</p>
-                    <p>Incertitudes de l'option asiatique (Moyenne {{moyenne_type}}) (Call) : {{ call_uncertainty}}</p>
+                    <h4>Prix actuel de l'actif {{S}} €</h4>
+                    <h4>Prix d'exercice de l'option {{K}} €</h4>
+                    <h4>Prix estimé de l'option asiatique (Moyenne {{moyenne_type}})  (Call) : {{ call_result }} +/- {{ call_uncertainty}} €</h4>
                     {% if call_graph %}
                         <h2>Trajectoires Monte Carlo - Option Call :</h2>
                         <img src="data:image/png;base64,{{ call_graph }}" alt="Graphique Call">
                     {% endif %}
                 {% endif %}
                 {% if option_type == 'PUT' %}
-                    <p>Prix estimé de l'option asiatique (Moyenne {{moyenne_type}})  (Put) : {{ put_result }}</p>
-                    <p>Incertitudes de l'option asiatique (Moyenne {{moyenne_type}}) (Put) : {{ put_uncertainty}}</p>
+                    <h4>Prix actuel de l'actif {{S}} €</h4>
+                    <h4>Prix d'exercice de l'option {{K}} €</h4>
+                    <h4>Prix estimé de l'option asiatique (Moyenne {{moyenne_type}})  (Put) : {{ put_result }} +/- {{ put_uncertainty}} €</h4>
                     {% if put_graph %}
                     <h3>Trajectoires Monte Carlo - Option Put :</h3>
                     <img src="data:image/png;base64,{{ put_graph }}" alt="Graphique Put">
@@ -82,8 +84,65 @@
 
         </section>
     </main>
-    <footer>
+    <br>
+    <div class="explications">
 
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <h1>Calcul des Options Asiatiques</h1>
+
+        <h2>Introduction</h2>
+        <p>Les options asiatiques sont des options exotiques dont le paiement dépend de la moyenne des prix de l'actif sous-jacent sur une période donnée. Elles peuvent être classées en deux catégories :</p>
+        <ul>
+            <li><strong>Options asiatiques à moyenne de prix (Average Price Options)</strong></li>
+            <li><strong>Options asiatiques à moyenne de taux (Average Rate Options)</strong></li>
+        </ul>
+
+        <h2>Formulation du Problème</h2>
+        <p>Soit \( S(t) \) le prix de l'actif sous-jacent à l'instant \( t \). La moyenne arithmétique des prix sur \( n \) périodes est donnée par :</p>
+        <p>\[
+            A = \frac{1}{n} \sum_{i=1}^{n} S(t_i)
+        \]</p>
+
+        <h3>Prix d'une Option d'Achat Asiatique à Moyenne Arithmétique (Call)</h3>
+        <p>Le payoff à l'échéance \( T \) est :</p>
+        <p>\[
+            \max(A - K, 0)
+        \]</p>
+        <p>où :</p>
+        <ul>
+            <li>\( A \) : Moyenne arithmétique des prix</li>
+            <li>\( K \) : Prix d'exercice</li>
+        </ul>
+
+        <h2>Approche de Pricing</h2>
+        <p>Le prix de l'option asiatique peut être évalué par :</p>
+        <p>\[
+            C = e^{-rT} \mathbb{E}[\max(A - K, 0)]
+        \]</p>
+        <p>où :</p>
+        <ul>
+            <li>\( r \) : Taux d'intérêt sans risque</li>
+            <li>\( T \) : Maturité de l'option</li>
+            <li>\( \mathbb{E} \) : Espérance sous la mesure risque-neutre</li>
+        </ul>
+
+        <h2>Méthode de Monte Carlo</h2>
+        <p>La méthode de Monte Carlo est souvent utilisée pour évaluer ce type d'option :</p>
+        <p>\[
+            C \approx e^{-rT} \cdot \frac{1}{M} \sum_{j=1}^{M} \max(A_j - K, 0)
+        \]</p>
+        <p>où :</p>
+        <ul>
+            <li>\( M \) : Nombre de simulations</li>
+            <li>\( A_j \) : Moyenne des prix simulés pour la \( j \)-ème trajectoire</li>
+        </ul>
+
+        <h2>Conclusion</h2>
+        <p>Le calcul des options asiatiques repose sur des méthodes analytiques complexes ou des approches numériques comme la simulation de Monte Carlo. L'utilisation de la moyenne des prix réduit la volatilité du payoff par rapport aux options européennes classiques.</p>
+    </div>
+    <footer>
+        <p>&copy; 2024-2025 CAL-IN. Tous droits réservés.</p>
     </footer>
 </body>
 </html>

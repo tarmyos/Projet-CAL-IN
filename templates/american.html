@@ -56,14 +56,63 @@
         </section>
         <section class="resultats">
             {% if call_result is not none and put_result is not none %}
-            <h2>Résultats :</h2>
-            <p>Prix de l'option américaine Call : {{ call_result }}</p>
-            <p>Prix de l'option américaine Put : {{ put_result }}</p>
+                <h2>Résultats :</h2>
+                <h4>Prix actuel de l'actif {{S}} €</h4>
+                <h4>Prix d'exercice de l'option {{K}} €</h4>
+                <h4>Prix de l'option américaine Call : {{ call_result }} €</h4>
+                <h4>Prix de l'option américaine Put : {{ put_result }} €</h4>
             {% endif %}
         </section>
     </main>
-    <footer>
+    <br>
+    <div class="explications">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
+        <h1>Calcul d'Option Américaine</h1>
+
+        <h2>Introduction</h2>
+        <p>Une option américaine est un type d'option qui peut être exercée à tout moment avant ou à l'échéance. Cela la rend plus complexe à évaluer qu'une option européenne.</p>
+
+        <h2>Modèle de Binomial pour les Options Américaines</h2>
+        <p>Le modèle binomial est une méthode populaire pour évaluer les options américaines. Il repose sur un arbre binaire des prix de l'actif sous-jacent.</p>
+
+        <h3>Formule de Base</h3>
+        <p>La valeur de l'option à un nœud de l'arbre est donnée par :</p>
+        <p>\[
+            V = \max\left( S - K, e^{-r \Delta t} (p V_{u} + (1 - p) V_{d}) \right)
+        \]</p>
+        <p>où :</p>
+        <ul>
+            <li>\( V \) est la valeur de l'option,</li>
+            <li>\( S \) est le prix de l'actif sous-jacent,</li>
+            <li>\( K \) est le prix d'exercice,</li>
+            <li>\( r \) est le taux d'intérêt sans risque,</li>
+            <li>\( \Delta t \) est l'intervalle de temps,</li>
+            <li>\( p \) est la probabilité neutre au risque :</li>
+        </ul>
+        <p>\[
+            p = \frac{e^{r \Delta t} - d}{u - d}
+        \]</p>
+        <p>avec :</p>
+        <ul>
+            <li>\( u = e^{\sigma \sqrt{\Delta t}} \) (facteur de hausse),</li>
+            <li>\( d = e^{-\sigma \sqrt{\Delta t}} \) (facteur de baisse),</li>
+            <li>\( \sigma \) est la volatilité de l'actif.</li>
+        </ul>
+
+        <h2>Condition d'Exercice Optimal</h2>
+        <p>Pour une option américaine, l'option est exercée si :</p>
+        <p>\[
+            S - K > e^{-r \Delta t} (p V_{u} + (1 - p) V_{d})
+        \]</p>
+        <p>Cela reflète la possibilité d'exercer l'option de manière anticipée si cela est plus avantageux que de la conserver.</p>
+
+        <h2>Conclusion</h2>
+        <p>Le calcul d'option américaine nécessite l'évaluation des possibilités d'exercice à chaque étape de l'arbre binomial. Cette flexibilité rend leur valorisation plus complexe mais essentielle pour des stratégies de couverture avancées.</p>
+    </div>
+    <footer>
+        <p>&copy; 2024-2025 CAL-IN. Tous droits réservés.</p>
     </footer>
 </body>
 </html>

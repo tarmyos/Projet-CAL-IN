@@ -64,14 +64,76 @@
         </section>
         <section class="resultats">
             {% if call_result is not none and put_result is not none %}
-            <h2>Résultats :</h2>
-            <p>Prix de l'option bermudienne Call : {{ call_result }}</p>
-            <p>Prix de l'option bermudienne Put : {{ put_result }}</p>
+                <h2>Résultats :</h2>
+                <h4>Prix actuel de l'actif {{S}} €</h4>
+                <h4>Prix d'exercice de l'option {{K}} €</h4>
+                <h4>Prix de l'option bermudienne Call : {{ call_result }} €</p>
+                <h4>Prix de l'option bermudienne Put : {{ put_result }} €</p>
             {% endif %}
         </section>
     </main>
-    <footer>
+    <br>
+    <div class="explications">
+        
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
+        <h1>Calcul des Options Bermudiennes (Call et Put)</h1>
+
+        <h2>Définition</h2>
+        <p>Une option bermudienne est un hybride entre une option européenne et une option américaine. Elle peut être exercée à des dates spécifiques prédéfinies avant l'échéance.</p>
+
+        <h2>Modèle de l'Arbre Binomial</h2>
+        <p>Le calcul du prix des options bermudiennes est souvent réalisé via un <strong>arbre binomial</strong>. Ce modèle permet d'estimer les prix des actifs sous-jacents à différentes étapes jusqu'à l'échéance.</p>
+
+        <h3>Formules de base :</h3>
+        <p class="formula">\( u = e^{\sigma \sqrt{\Delta t}} \quad \text{et} \quad d = e^{-\sigma \sqrt{\Delta t}} \)</p>
+        <p>où :</p>
+        <ul>
+            <li><strong>u</strong> : facteur de hausse</li>
+            <li><strong>d</strong> : facteur de baisse</li>
+            <li><strong>σ</strong> : volatilité de l'actif sous-jacent</li>
+            <li><strong>Δt</strong> : incrément de temps</li>
+        </ul>
+
+        <h3>Probabilité de neutralité au risque :</h3>
+        <p class="formula">\( p = \frac{e^{r \Delta t} - d}{u - d} \)</p>
+        <p>avec :</p>
+        <ul>
+            <li><strong>r</strong> : taux d'intérêt sans risque</li>
+        </ul>
+
+        <h2>Évaluation de l'Option</h2>
+        <p>Pour chaque nœud de l'arbre binomial, le prix de l'option est calculé comme suit :</p>
+
+        <h3>Valeur de continuation :</h3>
+        <p class="formula">\( V = e^{-r \Delta t} (p \cdot V_{haut} + (1 - p) \cdot V_{bas}) \)</p>
+
+        <h3>Prix de l'option bermudienne :</h3>
+        <p>À chaque date d'exercice possible :</p>
+        <p class="formula">\( V = \max(V_{continuation}, V_{exercice}) \)</p>
+        <p>où :</p>
+        <ul>
+            <li><strong>V<sub>continuation</sub></strong> : valeur si l'option n'est pas exercée</li>
+            <li><strong>V<sub>exercice</sub></strong> : valeur si l'option est exercée</li>
+        </ul>
+
+        <h2>Exemple de Calcul</h2>
+        <p>Considérons une option Call bermudienne avec :</p>
+        <ul>
+            <li>Prix de l'actif sous-jacent (S) : 100</li>
+            <li>Prix d'exercice (K) : 100</li>
+            <li>Volatilité (σ) : 20%</li>
+            <li>Taux sans risque (r) : 5%</li>
+            <li>2 dates d'exercice possibles sur une période de 1 an</li>
+        </ul>
+        <p>Nous construisons un arbre binomial et appliquons les formules ci-dessus à chaque nœud.</p>
+
+        <h2>Conclusion</h2>
+        <p>Les options bermudiennes offrent plus de flexibilité que les options européennes tout en étant plus simples à évaluer que les options américaines grâce à des dates d'exercice limitées.</p>
+    </div>
+    <footer>
+        <p>&copy; 2024-2025 CAL-IN. Tous droits réservés.</p>
     </footer>
     
 </body>

@@ -62,8 +62,9 @@
             {% if call_result is not none and put_result is not none %}
                 <h2>Résultats :</h2>
                 {% if option_type == 'CALL' %}
-                    <p>Prix de l'option Call : {{ call_result }}</p>
-                    <p>Incertitude sur l'option Call : {{ call_uncertainty }}</p>
+                    <h4>Prix actuel de l'actif {{S}} €</h4>
+                    <h4>Prix d'exercice de l'option {{K}} €</h4>
+                    <h4>Prix de l'option Call : {{ call_result }} +/- {{ call_uncertainty }} €</h4>
                     {% if graph_url_call %}
                         <h2>Graphique de l'Option Call et PnL</h2>
                         <img src="data:image/png;base64,{{ graph_url_call }}" alt="Graphique Option Call et PnL">
@@ -71,8 +72,9 @@
                 {% endif %}
 
                 {% if option_type == 'PUT' %}
-                    <p>Prix de l'option Put : {{ put_result }}</p>
-                    <p>Incertitude sur l'option Put : {{ put_uncertainty }}</p>
+                <h4>Prix actuel de l'actif {{S}} €</h4>
+                <h4>Prix d'exercice de l'option {{K}} €</h4>
+                    <h4>Prix de l'option Put : {{ put_result }} +/- {{ put_uncertainty }} €</h4>
                     {% if graph_url_put %}
                         <h2>Graphique de l'Option Put et PnL</h2>
                         <img src="data:image/png;base64,{{ graph_url_put }}" alt="Graphique Option Put et PnL">
@@ -83,8 +85,67 @@
         
         </section>
     </main>
-    <footer>
+    <br>
 
+    <div class="explications">
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <h1>Calcul des Options Européennes : Call et Put</h1>
+        <br>
+        <h2>1. Introduction</h2>
+        <br>
+        <p>Les options européennes sont des contrats financiers qui donnent le droit, mais non l'obligation, d'acheter (Call) ou de vendre (Put) un actif sous-jacent à un prix déterminé (prix d'exercice) à une date d'échéance spécifique.</p>
+        <br>
+        <h2>2. Formule de Black-Scholes-Merton</h2>
+        <p>Le modèle de Black-Scholes-Merton est utilisé pour évaluer le prix des options européennes. Voici les formules pour le Call et le Put :</p>
+        <br>
+        <h3>Formule du Call Européen :</h3>
+        <div class="formula">
+            \( C = S_0 \cdot N(d_1) - K \cdot e^{-rT} \cdot N(d_2) \)
+        </div>
+        <br>
+        <h3>Formule du Put Européen :</h3>
+        <div class="formula">
+            \( P = K \cdot e^{-rT} \cdot N(-d_2) - S_0 \cdot N(-d_1) \)
+        </div>
+        <br>
+
+        <h3>Où :</h3>
+        <br>
+        <ul>
+            <li><strong>S<sub>0</sub></strong> : Prix actuel de l'actif sous-jacent</li>
+            <li><strong>K</strong> : Prix d'exercice de l'option</li>
+            <li><strong>r</strong> : Taux d'intérêt sans risque</li>
+            <li><strong>T</strong> : Temps jusqu'à l'échéance (en années)</li>
+            <li><strong>N(.)</strong> : Fonction de répartition cumulative de la loi normale standard</li>
+            <li><strong>d<sub>1</sub></strong> et <strong>d<sub>2</sub></strong> sont définis comme suit :</li>
+        </ul>
+        <br>
+
+        <div class="formula">
+            \( d_1 = \frac{\ln(\frac{S_0}{K}) + (r + \frac{\sigma^2}{2})T}{\sigma \sqrt{T}} \)
+        </div>
+        <br>
+        <div class="formula">
+            \( d_2 = d_1 - \sigma \sqrt{T} \)
+        </div>
+        <br>
+
+        <h3>Où :</h3>
+        <ul>
+            <li><strong>σ</strong> : Volatilité de l'actif sous-jacent</li>
+            <li><strong>ln</strong> : Logarithme népérien</li>
+        </ul>
+        <br>
+        <h2>3. Interprétation des Résultats</h2>
+        <p>Les formules permettent d'évaluer la valeur théorique des options en fonction des paramètres du marché. Le prix de l'option évolue avec la variation du prix de l'actif, la volatilité, le temps restant jusqu'à l'échéance et le taux d'intérêt.</p>
+        <br>
+        <h2>4. Conclusion</h2>
+        <p>Le modèle de Black-Scholes-Merton reste un outil fondamental pour la valorisation des options européennes, bien qu'il repose sur des hypothèses simplificatrices comme l'absence d'arbitrage et une volatilité constante.</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2024-2025 CAL-IN. Tous droits réservés.</p>
     </footer>
     
 </body>
