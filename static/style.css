@@ -17,7 +17,8 @@ header {
     justify-content: center;
 }
 header img {
-
+    margin: 10px;
+    border-radius: 25px;
 }
 
 
