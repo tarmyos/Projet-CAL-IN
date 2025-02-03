@@ -13,15 +13,13 @@ body {
 
 /* Style du header */
 header {
-    text-align: center;
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.6); /* Un fond noir semi-transparent */
+    display: flex;
+    justify-content: center;
+}
+header img {
+
 }
 
-header h1 {
-    margin: 0;
-    font-size: 3em;
-}
 
 /* Style du menu de navigation */
 nav {
