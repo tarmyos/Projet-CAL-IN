@@ -41,6 +41,10 @@ def european():
             dr = float(request.form['dr'])
             dSigma = float(request.form['dSigma'])
 
+            # validation et sanitization des données
+            if S <= 0 or K <= 0 or T <= 0 or r < 0 or sigma <= 0 or dT < 0 or dr < 0 or dSigma < 0:
+                raise ValueError("Les valeurs des paramètres doivent être strictement positives")
+
             # Type d'option
             option_type = request.form['optionType']
 
@@ -83,6 +87,10 @@ def american():
             sigma = float(request.form['sigma'])
             n = int(request.form['n'])
 
+            # validation et sanitization des données
+            if S <= 0 or K <= 0 or T <= 0 or r < 0 or sigma <= 0 or n <= 0:
+                raise ValueError("Les valeurs des paramètres doivent être strictement positives")
+
             # Type d'option
             option_type = request.form['optionType']
 
@@ -117,6 +125,10 @@ def bermudian():
             exercise_times_str = request.form.getlist('exercise_times')
             exercise_times = [float(t) for t in exercise_times_str]
 
+            # validation et sanitization des données
+            if S <= 0 or K <= 0 or T <= 0 or r < 0 or sigma <= 0 or n <= 0:
+                raise ValueError("Les valeurs des paramètres doivent être strictement positives")
+
             # Type d'option
             option_type = request.form['optionType']
 
@@ -149,6 +161,10 @@ def barrier():
             B = float(request.form['B'])
             n = int(request.form['n'])
             barrier_type = request.form['btype']
+
+            # validation et sanitization des données
+            if S <= 0 or K <= 0 or T <= 0 or r < 0 or sigma <= 0 or n <= 0 or B <= 0:
+                raise ValueError("Les valeurs des paramètres doivent être strictement positives")
             
             # Type d'option
             option_type = request.form['optionType']
@@ -189,6 +205,10 @@ def asian():
             sigma = float(request.form['sigma'])
             n = int(request.form['n'])
 
+            # validation et sanitization des données
+            if S <= 0 or K <= 0 or T <= 0 or r < 0 or sigma <= 0 or n <= 0:
+                raise ValueError("Les valeurs des paramètres doivent être strictement positives")
+
             # Type d'option
             option_type = request.form['optionType']
 
@@ -226,6 +246,10 @@ def lookback():
             r = float(request.form['r'])
             sigma = float(request.form['sigma'])
             n = int(request.form['n'])
+
+            # validation et sanitization des données
+            if S <= 0 or T <= 0 or r < 0 or sigma <= 0 or n <= 0:
+                raise ValueError("Les valeurs des paramètres doivent être strictement positives")
 
             # Type d'option
             option_type = request.form['optionType']
